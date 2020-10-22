@@ -17,7 +17,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::where('user_id',Auth::id())->orderBy('created_at','desc')->get();
+        // $posts = Post::all();
+        return view('admin.posts.index',compact('posts'));
     }
 
     /**
@@ -48,7 +50,9 @@ class PostController extends Controller
             $newPost = new Post();
             $newPost->fill($data);
             $saved = $newPost->save();
-            dd($saved);
+            if($saved){
+                return redirect()->route('posts.index');
+            }
     }
 
     /**
@@ -93,6 +97,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index')->with('status','Hai cancellato il post con id '. $post->id);
     }
 }
