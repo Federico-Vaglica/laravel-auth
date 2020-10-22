@@ -21,6 +21,13 @@
         <textarea class="form-control" name="body" rows="3"></textarea>
       </div>
 
+    <div class="form-gropu">
+      @foreach ($tags as $tag)
+      <label for="title">{{$tag->name}}</label>
+      <input type="checkbox" name="tags[]" value="{{$tag->id}}">
+      @endforeach
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 @endsection

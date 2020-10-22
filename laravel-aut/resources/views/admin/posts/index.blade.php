@@ -21,7 +21,7 @@
         <tr>
             <th scope="row">{{$post->id}}</th>
             <td>{{$post->title}}</td>
-            <td><a href="#">Modifica</a></td>
+            <td><a href="{{route('posts.edit',$post->id)}}">Modifica</a></td>
             <td>
                 <form action="{{route('posts.destroy',$post->id)}}" method="POST">
                     @csrf
