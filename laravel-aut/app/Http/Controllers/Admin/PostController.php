@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
+use Carbon\Carbon;
 use App\Post;
 use App\Tag;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -96,6 +97,7 @@ class PostController extends Controller
     {
         $data=$request->all();
         $data['slug']= Str::slug($data['title'],'-');
+        $data['updated_at'] = Carbon::now();
         $post->tags()->sync($data['tags']);
         $post->update($data);
         return redirect()->route('posts.index')->with('status','Hai modificato il post con id '. $post->id);
