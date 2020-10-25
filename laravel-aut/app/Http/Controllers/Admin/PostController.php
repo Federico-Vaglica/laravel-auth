@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
+
 use App\Post;
 use App\Tag;
 
@@ -43,6 +43,25 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $request->validate([
+    //         'title'=>'required|min:5|max:100',
+    //         'body'=>'required|min:5|max:500',
+    //     ]);
+    //         $data['user_id'] = Auth::id();
+    //         $data['slug'] = Str::slug($data['title'],'-');
+    //         $newPost = new Post();
+    //         $newPost->fill($data);
+
+    //         $saved = $newPost->save();
+    //         $newPost->tags()->attach($data['tags']);
+    //         if($saved){
+    //             return redirect()->route('posts.index');
+    //         }
+    // }
+
     public function store(Request $request)
     {
         $data = $request->all();
@@ -54,9 +73,10 @@ class PostController extends Controller
             $data['slug'] = Str::slug($data['title'],'-');
             $newPost = new Post();
             $newPost->fill($data);
-
             $saved = $newPost->save();
-            $newPost->tags()->attach($data['tags']);
+            if(isset($data['tags'])) {
+                $newPost->tags()->attach($data['tags']);
+            }
             if($saved){
                 return redirect()->route('posts.index');
             }

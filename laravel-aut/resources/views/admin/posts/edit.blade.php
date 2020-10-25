@@ -24,7 +24,7 @@
       <div class="form-gropu">
         @foreach ($tags as $tag)
         <label for="title">{{$tag->name}}</label>
-        <input type="checkbox" name="tags[]" value="{{$tag->id}}" {{($post->tags->contains($tag->id) ? 'checked' : '')}}>
+        <input type="checkbox" name="tags[]"  value="{{ $tag->id }}"{{$post->tags->contains($tag->id)? 'checked="checked"' : ''}}>>
         @endforeach
       </div>
 
